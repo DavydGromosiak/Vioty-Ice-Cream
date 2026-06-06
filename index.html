@@ -33,21 +33,28 @@
     <a class="nav__link" href="#app">App</a>
   </nav>
 
-  <div class="socials" aria-label="Social links">
-    <button class="socials__button" type="button" aria-label="Instagram">
-      <img src="./frontend/assets/images/SocialMedia/Inst.png" alt="Instagram">
-    </button>
+  <div class="header__actions">
+    <div class="socials" aria-label="Social links">
+      <button class="socials__button" type="button" aria-label="Instagram">
+        <img src="./frontend/assets/images/SocialMedia/Inst.png" alt="Instagram">
+      </button>
 
-    <button class="socials__button" type="button" aria-label="Facebook">
-      <img src="./frontend/assets/images/SocialMedia/Facebook.png" alt="Facebook">
-    </button>
+      <button class="socials__button" type="button" aria-label="Facebook">
+        <img src="./frontend/assets/images/SocialMedia/Facebook.png" alt="Facebook">
+      </button>
 
-    <button class="socials__button" type="button" aria-label="TikTok">
-      <img src="./frontend/assets/images/SocialMedia/TikTok.png" alt="TikTok">
-    </button>
+      <button class="socials__button" type="button" aria-label="TikTok">
+        <img src="./frontend/assets/images/SocialMedia/TikTok.png" alt="TikTok">
+      </button>
 
-    <button class="socials__button" type="button" aria-label="YouTube">
-      <img src="./frontend/assets/images/SocialMedia/YouTube.png" alt="YouTube">
+      <button class="socials__button" type="button" aria-label="YouTube">
+        <img src="./frontend/assets/images/SocialMedia/YouTube.png" alt="YouTube">
+      </button>
+    </div>
+
+    <button class="cart-button" type="button" aria-label="Open cart">
+      <span class="cart-button__icon">Cart</span>
+      <span class="cart-button__count" aria-live="polite">0</span>
     </button>
   </div>
 </header>
@@ -276,6 +283,43 @@
     <p class="cart-modal__status" aria-live="polite"></p>
   </section>
 </div>
+
+<aside class="cart-drawer" aria-hidden="true">
+  <div class="cart-drawer__backdrop" data-close-cart></div>
+  <section class="cart-drawer__panel" aria-labelledby="cart-drawer-title">
+    <div class="cart-drawer__top">
+      <div>
+        <p class="cart-drawer__eyebrow">Your order</p>
+        <h2 class="cart-drawer__title" id="cart-drawer-title">Vioty Cart</h2>
+      </div>
+      <button class="cart-drawer__close" type="button" aria-label="Close cart" data-close-cart>&times;</button>
+    </div>
+
+    <div class="cart-drawer__items"></div>
+
+    <div class="cart-drawer__empty">
+      <p>Your cart is empty.</p>
+      <span>Add your favorite flavor to start.</span>
+    </div>
+
+    <div class="cart-drawer__summary">
+      <div class="cart-drawer__line">
+        <span>Subtotal</span>
+        <strong class="cart-drawer__subtotal">$0.00</strong>
+      </div>
+      <div class="cart-drawer__line">
+        <span>Cold delivery</span>
+        <strong class="cart-drawer__delivery">$0.00</strong>
+      </div>
+      <div class="cart-drawer__total">
+        <span>Total</span>
+        <strong class="cart-drawer__total-price">$0.00</strong>
+      </div>
+      <button class="button cart-drawer__checkout" type="button">Checkout</button>
+      <p class="cart-drawer__status" aria-live="polite"></p>
+    </div>
+  </section>
+</aside>
 
 <footer class="footer">
   <div class="footer__brand">
