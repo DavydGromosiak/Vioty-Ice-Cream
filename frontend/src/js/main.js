@@ -167,8 +167,22 @@ productArrows.forEach((arrow, index) => {
 
         const card = productList.querySelector(".product-card");
         const cardWidth = card ? card.getBoundingClientRect().width + 20 : 270;
-        productList.scrollBy({
-            left: index === 0 ? -cardWidth : cardWidth,
+        const maxScroll = productList.scrollWidth - productList.clientWidth;
+        const isPrevious = index === 0;
+        const isAtStart = productList.scrollLeft <= 2;
+        const isAtEnd = productList.scrollLeft >= maxScroll - 2;
+        let nextScroll = productList.scrollLeft + (isPrevious ? -cardWidth : cardWidth);
+
+        if (isPrevious && isAtStart) {
+            nextScroll = maxScroll;
+        }
+
+        if (!isPrevious && isAtEnd) {
+            nextScroll = 0;
+        }
+
+        productList.scrollTo({
+            left: nextScroll,
             behavior: "smooth",
         });
     });
