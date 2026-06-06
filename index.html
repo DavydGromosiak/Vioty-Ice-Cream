@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Hind+Madurai:wght@300;400;500;600;700&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./frontend/src/css/style.css">
+  <script src="./frontend/src/js/main.js" defer></script>
 </head>
 
 <body>
@@ -19,7 +20,13 @@
     <img src="./frontend/assets/images/1Logo/logo.png" alt="Vioty logo">
   </a>
 
-  <nav class="nav">
+  <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <nav class="nav" id="site-nav">
     <a class="nav__link" href="#main">Main</a>
     <a class="nav__link" href="#about">About Us</a>
     <a class="nav__link" href="#products">Products</a>
@@ -60,7 +67,13 @@
         one mouthful I've been left eating my thoughts, my words.
       </p>
 
-      <button class="button" type="button">Buy Now</button>
+      <div class="brand-tags" aria-label="Brand highlights">
+        <span>Premium Italian Ice Cream</span>
+        <span>Made with real milk</span>
+        <span>Since 1985</span>
+      </div>
+
+      <button class="button js-buy-now" type="button" data-name="Pistachio Dream" data-price="$19.55">Buy Now</button>
     </div>
 
     <img class="hero__image" src="./frontend/assets/images/2Hero-icecream/icecream.png" alt="Ice cream">
@@ -78,6 +91,39 @@
     <img class="about__strawberry" src="./frontend/assets/images/3Content/img-strawberry.png" alt="Strawberry">
   </section>
 
+  <section class="why" aria-labelledby="why-title">
+    <div class="why__top">
+      <p class="why__eyebrow">Why Vioty?</p>
+      <h2 class="why__title" id="why-title">Premium taste, simple ingredients.</h2>
+    </div>
+
+    <div class="why__list">
+      <article class="why-card">
+        <span class="why-card__icon">M</span>
+        <h3>Natural milk</h3>
+        <p>Rich dairy base with a clean, soft finish.</p>
+      </article>
+
+      <article class="why-card">
+        <span class="why-card__icon">I</span>
+        <h3>Italian recipe</h3>
+        <p>Slow-crafted texture inspired by classic gelato.</p>
+      </article>
+
+      <article class="why-card">
+        <span class="why-card__icon">0</span>
+        <h3>No artificial colors</h3>
+        <p>Color comes from real flavor ingredients.</p>
+      </article>
+
+      <article class="why-card">
+        <span class="why-card__icon">C</span>
+        <h3>Cold delivery</h3>
+        <p>Packed to arrive smooth, fresh, and ready.</p>
+      </article>
+    </div>
+  </section>
+
   <section class="products" id="products">
     <div class="products__top">
       <h2 class="products__title">Our Product</h2>
@@ -90,78 +136,78 @@
 
     <div class="products__list">
 
-      <div class="product-card">
+      <div class="product-card" data-name="Pistachio Dream" data-price="$19.55">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card1.png" alt="Product">
         <div class="product-card__body">
-          <h4 class="product-card__title">Brown bread</h4>
-          <p class="product-card__text">Bon Au Pain is a pioneer in the healthy fast food scene.Bon</p>
+          <h4 class="product-card__title">Pistachio Dream</h4>
+          <p class="product-card__text">Creamy pistachio with roasted notes and a silky Italian finish.</p>
 
           <div class="product-card__price">
             <b>$19.55</b>
             <s>$22.55</s>
           </div>
 
-          <button class="button product-card__button" type="button">Buy Now</button>
+          <button class="button product-card__button js-buy-now" type="button" data-name="Pistachio Dream" data-price="$19.55">Buy Now</button>
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-name="Berry Cream" data-price="$19.55">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card2.png" alt="Product">
         <div class="product-card__body">
-          <h4 class="product-card__title">Brown bread</h4>
-          <p class="product-card__text">Bon Au Pain is a pioneer in the healthy fast food scene.Bon</p>
+          <h4 class="product-card__title">Berry Cream</h4>
+          <p class="product-card__text">Bright berry swirl balanced with soft milk cream and a fresh bite.</p>
 
           <div class="product-card__price">
             <b>$19.55</b>
             <s>$22.55</s>
           </div>
 
-          <button class="button product-card__button" type="button">Buy Now</button>
+          <button class="button product-card__button js-buy-now" type="button" data-name="Berry Cream" data-price="$19.55">Buy Now</button>
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-name="Vanilla Black" data-price="$19.55">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card3.png" alt="Product">
         <div class="product-card__body">
-          <h4 class="product-card__title">Brown bread</h4>
-          <p class="product-card__text">Bon Au Pain is a pioneer in the healthy fast food scene.Bon</p>
+          <h4 class="product-card__title">Vanilla Black</h4>
+          <p class="product-card__text">Deep vanilla cream with a bold dark cup and smooth mellow taste.</p>
 
           <div class="product-card__price">
             <b>$19.55</b>
             <s>$22.55</s>
           </div>
 
-          <button class="button product-card__button" type="button">Buy Now</button>
+          <button class="button product-card__button js-buy-now" type="button" data-name="Vanilla Black" data-price="$19.55">Buy Now</button>
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-name="Strawberry Milk" data-price="$19.55">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card4.png" alt="Product">
         <div class="product-card__body">
-          <h4 class="product-card__title">Brown bread</h4>
-          <p class="product-card__text">Bon Au Pain is a pioneer in the healthy fast food scene.Bon</p>
+          <h4 class="product-card__title">Strawberry Milk</h4>
+          <p class="product-card__text">Soft strawberry spoonfuls blended into a cold, milky dessert.</p>
 
           <div class="product-card__price">
             <b>$19.55</b>
             <s>$22.55</s>
           </div>
 
-          <button class="button product-card__button" type="button">Buy Now</button>
+          <button class="button product-card__button js-buy-now" type="button" data-name="Strawberry Milk" data-price="$19.55">Buy Now</button>
         </div>
       </div>
 
-      <div class="product-card">
+      <div class="product-card" data-name="Classic Mint" data-price="$19.55">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card5.png" alt="Product">
         <div class="product-card__body">
-          <h4 class="product-card__title">Brown bread</h4>
-          <p class="product-card__text">Bon Au Pain is a pioneer in the healthy fast food scene.Bon</p>
+          <h4 class="product-card__title">Classic Mint</h4>
+          <p class="product-card__text">Cool mint cream with a crisp finish and a rich dairy body.</p>
 
           <div class="product-card__price">
             <b>$19.55</b>
             <s>$22.55</s>
           </div>
 
-          <button class="button product-card__button" type="button">Buy Now</button>
+          <button class="button product-card__button js-buy-now" type="button" data-name="Classic Mint" data-price="$19.55">Buy Now</button>
         </div>
       </div>
 
@@ -197,13 +243,39 @@
       Let us help you
     </h2>
 
-    <div class="question__form">
-      <input class="question__input" type="text" placeholder="Enter your question">
+    <div class="question__form" role="form">
+      <input class="question__input" type="text" placeholder="Enter your question" aria-label="Your question">
       <button class="question__button" type="button">Send</button>
     </div>
+    <p class="question__status" aria-live="polite"></p>
   </section>
 
 </main>
+
+<div class="cart-modal" aria-hidden="true">
+  <div class="cart-modal__backdrop" data-close-modal></div>
+  <section class="cart-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <button class="cart-modal__close" type="button" aria-label="Close cart" data-close-modal>&times;</button>
+    <p class="cart-modal__eyebrow">Vioty Shop</p>
+    <h2 class="cart-modal__title" id="cart-title">Add to cart</h2>
+    <div class="cart-modal__product">
+      <span class="cart-modal__label">Flavor</span>
+      <strong class="cart-modal__name">Pistachio Dream</strong>
+    </div>
+    <div class="cart-modal__row">
+      <div>
+        <span class="cart-modal__label">Price</span>
+        <strong class="cart-modal__price">$19.55</strong>
+      </div>
+      <label class="cart-modal__qty">
+        <span class="cart-modal__label">Qty</span>
+        <input class="cart-modal__input" type="number" min="1" value="1">
+      </label>
+    </div>
+    <button class="button cart-modal__button" type="button">Add To Cart</button>
+    <p class="cart-modal__status" aria-live="polite"></p>
+  </section>
+</div>
 
 <footer class="footer">
   <div class="footer__brand">
