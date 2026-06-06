@@ -1,6 +1,8 @@
 const nav = document.querySelector(".nav");
 const menuToggle = document.querySelector(".menu-toggle");
 const productList = document.querySelector(".products__list");
+const productCards = document.querySelectorAll(".product-card");
+const productFilters = document.querySelectorAll(".product-filter");
 const productArrows = document.querySelectorAll(".products__arrow");
 const buyButtons = document.querySelectorAll(".js-buy-now");
 const modal = document.querySelector(".cart-modal");
@@ -19,12 +21,24 @@ const cartDelivery = document.querySelector(".cart-drawer__delivery");
 const cartTotal = document.querySelector(".cart-drawer__total-price");
 const cartCheckout = document.querySelector(".cart-drawer__checkout");
 const cartStatus = document.querySelector(".cart-drawer__status");
+const checkoutForm = document.querySelector(".checkout-form");
 const closeCartButtons = document.querySelectorAll("[data-close-cart]");
+const favoriteCount = document.querySelector(".favorite-counter__count");
+const quickView = document.querySelector(".quick-view");
+const quickImage = document.querySelector(".quick-view__image");
+const quickBadge = document.querySelector(".quick-view__badge");
+const quickTitle = document.querySelector(".quick-view__title");
+const quickText = document.querySelector(".quick-view__text");
+const quickCalories = document.querySelector(".quick-view__calories");
+const quickSize = document.querySelector(".quick-view__size");
+const quickBuy = document.querySelector(".quick-view__buy");
+const closeQuickButtons = document.querySelectorAll("[data-close-quick]");
 const questionForm = document.querySelector(".question__form");
 const questionInput = document.querySelector(".question__input");
 const questionStatus = document.querySelector(".question__status");
 
 const cart = [];
+const favorites = new Set();
 const deliveryPrice = 4.99;
 
 const formatPrice = (value) => `$${value.toFixed(2)}`;
@@ -37,9 +51,64 @@ const setMenuState = (isOpen) => {
 };
 
 const setPageLock = () => {
-    const hasOverlay = modal?.classList.contains("is-open") || cartDrawer?.classList.contains("is-open");
+    const hasOverlay =
+        modal?.classList.contains("is-open") ||
+        cartDrawer?.classList.contains("is-open") ||
+        quickView?.classList.contains("is-open");
     document.body.classList.toggle("modal-open", Boolean(hasOverlay));
 };
+
+const refreshFavoriteCount = () => {
+    if (favoriteCount) {
+        favoriteCount.textContent = String(favorites.size);
+    }
+};
+
+const decorateProductCards = () => {
+    productCards.forEach((card) => {
+        const image = card.querySelector(".product-card__image");
+        const button = card.querySelector(".product-card__button");
+
+        if (image && !card.querySelector(".product-card__media")) {
+            const media = document.createElement("div");
+            media.className = "product-card__media";
+            image.before(media);
+            media.append(image);
+
+            const badge = document.createElement("span");
+            badge.className = "product-card__badge";
+            badge.textContent = card.dataset.badge || "New";
+            media.append(badge);
+
+            const favoriteButton = document.createElement("button");
+            favoriteButton.className = "product-card__favorite";
+            favoriteButton.type = "button";
+            favoriteButton.dataset.favorite = card.dataset.name;
+            favoriteButton.setAttribute("aria-label", `Add ${card.dataset.name} to favorites`);
+            favoriteButton.textContent = "♡";
+            media.append(favoriteButton);
+        }
+
+        if (button && !card.querySelector(".product-card__quick")) {
+            const quickButton = document.createElement("button");
+            quickButton.className = "product-card__quick";
+            quickButton.type = "button";
+            quickButton.dataset.quickView = card.dataset.name;
+            quickButton.textContent = "Quick View";
+            button.after(quickButton);
+        }
+    });
+};
+
+const getProductData = (card) => ({
+    name: card.dataset.name,
+    price: card.dataset.price,
+    badge: card.dataset.badge,
+    details: card.dataset.details,
+    calories: card.dataset.calories,
+    size: card.dataset.size,
+    image: card.querySelector(".product-card__image")?.getAttribute("src"),
+});
 
 const openCart = () => {
     if (!cartDrawer) return;
@@ -54,6 +123,33 @@ const closeCart = () => {
 
     cartDrawer.classList.remove("is-open");
     cartDrawer.setAttribute("aria-hidden", "true");
+    setPageLock();
+};
+
+const openQuickView = (card) => {
+    if (!quickView || !card) return;
+
+    const product = getProductData(card);
+    quickImage.src = product.image;
+    quickImage.alt = `${product.name} ice cream`;
+    quickBadge.textContent = product.badge;
+    quickTitle.textContent = product.name;
+    quickText.textContent = product.details;
+    quickCalories.textContent = product.calories;
+    quickSize.textContent = product.size;
+    quickBuy.dataset.name = product.name;
+    quickBuy.dataset.price = product.price;
+
+    quickView.classList.add("is-open");
+    quickView.setAttribute("aria-hidden", "false");
+    setPageLock();
+};
+
+const closeQuickView = () => {
+    if (!quickView) return;
+
+    quickView.classList.remove("is-open");
+    quickView.setAttribute("aria-hidden", "true");
     setPageLock();
 };
 
@@ -161,6 +257,27 @@ nav?.addEventListener("click", (event) => {
     }
 });
 
+decorateProductCards();
+refreshFavoriteCount();
+
+productFilters.forEach((filter) => {
+    filter.addEventListener("click", () => {
+        const activeFilter = filter.dataset.filter;
+
+        productFilters.forEach((button) => {
+            button.classList.toggle("is-active", button === filter);
+        });
+
+        productCards.forEach((card) => {
+            const categories = card.dataset.category || "";
+            const shouldShow = activeFilter === "all" || categories.split(" ").includes(activeFilter);
+            card.classList.toggle("is-hidden", !shouldShow);
+        });
+
+        productList?.scrollTo({ left: 0, behavior: "smooth" });
+    });
+});
+
 productArrows.forEach((arrow, index) => {
     arrow.addEventListener("click", () => {
         if (!productList) return;
@@ -197,8 +314,56 @@ buyButtons.forEach((button) => {
     });
 });
 
+productList?.addEventListener("click", (event) => {
+    const favoriteButton = event.target.closest("[data-favorite]");
+    const quickButton = event.target.closest("[data-quick-view]");
+    const blockedClick = event.target.closest("button");
+    const card = event.target.closest(".product-card");
+
+    if (favoriteButton) {
+        const name = favoriteButton.dataset.favorite;
+        const isFavorite = favorites.has(name);
+
+        if (isFavorite) {
+            favorites.delete(name);
+        } else {
+            favorites.add(name);
+        }
+
+        favoriteButton.classList.toggle("is-active", !isFavorite);
+        favoriteButton.textContent = isFavorite ? "♡" : "♥";
+        favoriteButton.setAttribute(
+            "aria-label",
+            `${isFavorite ? "Add" : "Remove"} ${name} ${isFavorite ? "to" : "from"} favorites`
+        );
+        refreshFavoriteCount();
+        return;
+    }
+
+    if (quickButton) {
+        openQuickView(quickButton.closest(".product-card"));
+        return;
+    }
+
+    if (card && !blockedClick) {
+        openQuickView(card);
+    }
+});
+
 closeModalButtons.forEach((button) => {
     button.addEventListener("click", closeModal);
+});
+
+closeQuickButtons.forEach((button) => {
+    button.addEventListener("click", closeQuickView);
+});
+
+quickBuy?.addEventListener("click", () => {
+    closeQuickView();
+    openModal({
+        name: quickBuy.dataset.name,
+        price: quickBuy.dataset.price,
+    });
 });
 
 cartButton?.addEventListener("click", openCart);
@@ -229,6 +394,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
         closeModal();
         closeCart();
+        closeQuickView();
         setMenuState(false);
     }
 });
@@ -248,7 +414,16 @@ addToCartButton?.addEventListener("click", () => {
 cartCheckout?.addEventListener("click", () => {
     if (cart.length === 0) return;
 
-    cartStatus.textContent = "Order created! We will prepare it for cold delivery.";
+    const fields = Array.from(checkoutForm?.querySelectorAll("input, select") || []);
+    const isComplete = fields.every((field) => field.value.trim());
+
+    if (!isComplete) {
+        cartStatus.textContent = "Please fill in your name, phone, address, and delivery method.";
+        return;
+    }
+
+    const formData = new FormData(checkoutForm);
+    cartStatus.textContent = `Order created for ${formData.get("name")} via ${formData.get("delivery")}. We will prepare cold delivery.`;
 });
 
 questionForm?.addEventListener("click", (event) => {
@@ -257,5 +432,27 @@ questionForm?.addEventListener("click", (event) => {
     questionStatus.textContent = "Thank you! We will contact you soon.";
     questionInput.value = "";
 });
+
+const revealElements = document.querySelectorAll("main > section, .product-card, .footer");
+
+if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    revealElements.forEach((element) => {
+        element.classList.add("reveal");
+        revealObserver.observe(element);
+    });
+} else {
+    revealElements.forEach((element) => {
+        element.classList.add("is-visible");
+    });
+}
 
 renderCart();

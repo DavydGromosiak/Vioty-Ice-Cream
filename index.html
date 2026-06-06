@@ -56,6 +56,11 @@
       <span class="cart-button__icon">Cart</span>
       <span class="cart-button__count" aria-live="polite">0</span>
     </button>
+
+    <button class="favorite-counter" type="button" aria-label="Favorite products">
+      <span>Favorites</span>
+      <strong class="favorite-counter__count" aria-live="polite">0</strong>
+    </button>
   </div>
 </header>
 
@@ -141,9 +146,17 @@
       </div>
     </div>
 
+    <div class="product-filters" aria-label="Product filters">
+      <button class="product-filter is-active" type="button" data-filter="all">All</button>
+      <button class="product-filter" type="button" data-filter="fruit">Fruit</button>
+      <button class="product-filter" type="button" data-filter="classic">Classic</button>
+      <button class="product-filter" type="button" data-filter="chocolate">Chocolate</button>
+      <button class="product-filter" type="button" data-filter="premium">Premium</button>
+    </div>
+
     <div class="products__list">
 
-      <div class="product-card" data-name="Pistachio Dream" data-price="$19.55">
+      <div class="product-card" data-name="Pistachio Dream" data-price="$19.55" data-category="classic premium" data-badge="Best Seller" data-calories="260 kcal" data-size="500 ml" data-details="Roasted pistachio cream with a soft Italian texture and a nutty finish.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card1.png" alt="Product">
         <div class="product-card__body">
           <h4 class="product-card__title">Pistachio Dream</h4>
@@ -158,7 +171,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Berry Cream" data-price="$19.55">
+      <div class="product-card" data-name="Berry Cream" data-price="$19.55" data-category="fruit" data-badge="New" data-calories="240 kcal" data-size="500 ml" data-details="Berry swirl folded into milk cream for a bright, fresh, summer taste.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card2.png" alt="Product">
         <div class="product-card__body">
           <h4 class="product-card__title">Berry Cream</h4>
@@ -173,7 +186,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Vanilla Black" data-price="$19.55">
+      <div class="product-card" data-name="Vanilla Black" data-price="$19.55" data-category="classic premium" data-badge="Premium" data-calories="255 kcal" data-size="500 ml" data-details="Deep vanilla cream in a bold dark cup with a mellow, elegant finish.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card3.png" alt="Product">
         <div class="product-card__body">
           <h4 class="product-card__title">Vanilla Black</h4>
@@ -188,7 +201,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Strawberry Milk" data-price="$19.55">
+      <div class="product-card" data-name="Strawberry Milk" data-price="$19.55" data-category="fruit classic" data-badge="No Sugar" data-calories="210 kcal" data-size="500 ml" data-details="Soft strawberry spoonfuls blended into cold milk cream with a light finish.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card4.png" alt="Product">
         <div class="product-card__body">
           <h4 class="product-card__title">Strawberry Milk</h4>
@@ -203,7 +216,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Classic Mint" data-price="$19.55">
+      <div class="product-card" data-name="Classic Mint" data-price="$19.55" data-category="classic" data-badge="Limited" data-calories="230 kcal" data-size="500 ml" data-details="Cool mint cream with a crisp finish and a smooth dairy body.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card5.png" alt="Product">
         <div class="product-card__body">
           <h4 class="product-card__title">Classic Mint</h4>
@@ -218,7 +231,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Chocolate Noir" data-price="$20.55">
+      <div class="product-card" data-name="Chocolate Noir" data-price="$20.55" data-category="chocolate premium" data-badge="Premium" data-calories="290 kcal" data-size="500 ml" data-details="Dark cocoa cream with deep roasted flavor and a soft bitter edge.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card6.png" alt="Chocolate Noir ice cream">
         <div class="product-card__body">
           <h4 class="product-card__title">Chocolate Noir</h4>
@@ -233,7 +246,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Mango Silk" data-price="$18.95">
+      <div class="product-card" data-name="Mango Silk" data-price="$18.95" data-category="fruit" data-badge="New" data-calories="225 kcal" data-size="500 ml" data-details="Tropical mango cream with a bright sunny taste and velvet texture.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card7.png" alt="Mango Silk ice cream">
         <div class="product-card__body">
           <h4 class="product-card__title">Mango Silk</h4>
@@ -248,7 +261,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Blueberry Frost" data-price="$20.25">
+      <div class="product-card" data-name="Blueberry Frost" data-price="$20.25" data-category="fruit premium" data-badge="Best Seller" data-calories="245 kcal" data-size="500 ml" data-details="Cool blueberry flavor with creamy body and a clean berry aroma.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card8.png" alt="Blueberry Frost ice cream">
         <div class="product-card__body">
           <h4 class="product-card__title">Blueberry Frost</h4>
@@ -263,7 +276,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Caramel Gold" data-price="$21.55">
+      <div class="product-card" data-name="Caramel Gold" data-price="$21.55" data-category="classic premium" data-badge="Limited" data-calories="300 kcal" data-size="500 ml" data-details="Velvety caramel ribbons folded into rich milk ice cream.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card9.png" alt="Caramel Gold ice cream">
         <div class="product-card__body">
           <h4 class="product-card__title">Caramel Gold</h4>
@@ -278,7 +291,7 @@
         </div>
       </div>
 
-      <div class="product-card" data-name="Coconut Snow" data-price="$19.95">
+      <div class="product-card" data-name="Coconut Snow" data-price="$19.95" data-category="classic premium" data-badge="No Sugar" data-calories="220 kcal" data-size="500 ml" data-details="Light coconut cream with a clean finish and soft winter sweetness.">
         <img class="product-card__image" src="./frontend/assets/images/4Products/card10.png" alt="Coconut Snow ice cream">
         <div class="product-card__body">
           <h4 class="product-card__title">Coconut Snow</h4>
@@ -293,6 +306,39 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <section class="reviews" aria-labelledby="reviews-title">
+    <div class="reviews__top">
+      <div>
+        <p class="reviews__eyebrow">Customer love</p>
+        <h2 class="reviews__title" id="reviews-title">Rated 4.9 by ice cream people.</h2>
+      </div>
+      <div class="reviews__score">
+        <strong>4.9</strong>
+        <span>Loved by 12k customers</span>
+      </div>
+    </div>
+
+    <div class="reviews__list">
+      <article class="review-card">
+        <span>★★★★★</span>
+        <p>The texture feels expensive. Pistachio Dream is the one I keep reordering.</p>
+        <strong>Anna K.</strong>
+      </article>
+
+      <article class="review-card">
+        <span>★★★★★</span>
+        <p>Cold delivery arrived perfect, and the packaging looks unreal in the freezer.</p>
+        <strong>Mark D.</strong>
+      </article>
+
+      <article class="review-card">
+        <span>★★★★★</span>
+        <p>Berry Cream and Chocolate Noir are proper dessert-night flavors.</p>
+        <strong>Sofia L.</strong>
+      </article>
     </div>
   </section>
 
@@ -317,6 +363,35 @@
     </div>
 
     <img class="app__phone" src="./frontend/assets/images/6Phone/phone.png" alt="Phone">
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="faq__top">
+      <p class="faq__eyebrow">FAQ</p>
+      <h2 class="faq__title" id="faq-title">Before the first spoon.</h2>
+    </div>
+
+    <div class="faq__list">
+      <details class="faq-item">
+        <summary>How does cold delivery work?</summary>
+        <p>Orders are packed in insulated cold bags and delivered in a frozen-safe window.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>How should I store Vioty?</summary>
+        <p>Keep it sealed in the freezer and let it rest for 4-6 minutes before serving.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>What is inside the ice cream?</summary>
+        <p>Real milk, cream, flavor ingredients, and no artificial color in selected flavors.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Can I pay online?</summary>
+        <p>The checkout form collects delivery details now; payment UI can be connected next.</p>
+      </details>
+    </div>
   </section>
 
   <section class="question">
@@ -359,6 +434,24 @@
   </section>
 </div>
 
+<div class="quick-view" aria-hidden="true">
+  <div class="quick-view__backdrop" data-close-quick></div>
+  <section class="quick-view__dialog" role="dialog" aria-modal="true" aria-labelledby="quick-title">
+    <button class="quick-view__close" type="button" aria-label="Close quick view" data-close-quick>&times;</button>
+    <img class="quick-view__image" src="./frontend/assets/images/4Products/card1.png" alt="">
+    <div class="quick-view__content">
+      <p class="quick-view__badge">Best Seller</p>
+      <h2 class="quick-view__title" id="quick-title">Pistachio Dream</h2>
+      <p class="quick-view__text">Roasted pistachio cream with a soft Italian texture.</p>
+      <div class="quick-view__meta">
+        <span><strong class="quick-view__calories">260 kcal</strong> Calories</span>
+        <span><strong class="quick-view__size">500 ml</strong> Size</span>
+      </div>
+      <button class="button quick-view__buy" type="button">Buy Now</button>
+    </div>
+  </section>
+</div>
+
 <aside class="cart-drawer" aria-hidden="true">
   <div class="cart-drawer__backdrop" data-close-cart></div>
   <section class="cart-drawer__panel" aria-labelledby="cart-drawer-title">
@@ -390,6 +483,15 @@
         <span>Total</span>
         <strong class="cart-drawer__total-price">$0.00</strong>
       </div>
+      <form class="checkout-form">
+        <input type="text" name="name" placeholder="Your name" aria-label="Your name">
+        <input type="tel" name="phone" placeholder="Phone number" aria-label="Phone number">
+        <input type="text" name="address" placeholder="Delivery address" aria-label="Delivery address">
+        <select name="delivery" aria-label="Delivery method">
+          <option value="Cold courier">Cold courier</option>
+          <option value="Pickup">Pickup</option>
+        </select>
+      </form>
       <button class="button cart-drawer__checkout" type="button">Checkout</button>
       <p class="cart-drawer__status" aria-live="polite"></p>
     </div>
