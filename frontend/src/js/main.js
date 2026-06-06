@@ -29,8 +29,12 @@ const quickImage = document.querySelector(".quick-view__image");
 const quickBadge = document.querySelector(".quick-view__badge");
 const quickTitle = document.querySelector(".quick-view__title");
 const quickText = document.querySelector(".quick-view__text");
+const quickScore = document.querySelector(".quick-view__score");
+const quickVotes = document.querySelector(".quick-view__votes");
 const quickCalories = document.querySelector(".quick-view__calories");
 const quickSize = document.querySelector(".quick-view__size");
+const quickReviews = document.querySelector(".quick-view__reviews");
+const quickRelatedList = document.querySelector(".quick-view__related-list");
 const quickBuy = document.querySelector(".quick-view__buy");
 const closeQuickButtons = document.querySelectorAll("[data-close-quick]");
 const questionForm = document.querySelector(".question__form");
@@ -40,6 +44,88 @@ const questionStatus = document.querySelector(".question__status");
 const cart = [];
 const favorites = new Set();
 const deliveryPrice = 4.99;
+const productReviews = {
+    "Pistachio Dream": {
+        rating: "4.9",
+        votes: "214 reviews",
+        reviews: [
+            ["Creamy, nutty, and very smooth. This one tastes like the premium option.", "Anna K."],
+            ["The roasted pistachio note is exactly right, not too sweet.", "Daniel R."],
+        ],
+    },
+    "Berry Cream": {
+        rating: "4.8",
+        votes: "167 reviews",
+        reviews: [
+            ["Fresh berry flavor, soft texture, and a really clean finish.", "Mila S."],
+            ["Feels light but still rich enough for dessert night.", "Nora V."],
+        ],
+    },
+    "Vanilla Black": {
+        rating: "4.7",
+        votes: "132 reviews",
+        reviews: [
+            ["Classic vanilla, but the darker finish makes it feel more grown-up.", "Leo M."],
+            ["Simple, smooth, and the cup looks beautiful.", "Kate D."],
+        ],
+    },
+    "Strawberry Milk": {
+        rating: "4.8",
+        votes: "188 reviews",
+        reviews: [
+            ["The strawberry tastes soft and natural, not candy-like.", "Sofia L."],
+            ["My favorite for summer. Gentle and creamy.", "Alex P."],
+        ],
+    },
+    "Classic Mint": {
+        rating: "4.6",
+        votes: "119 reviews",
+        reviews: [
+            ["Cold, crisp, and super refreshing after dinner.", "Mark D."],
+            ["Mint is balanced well. No toothpaste vibe.", "Ira N."],
+        ],
+    },
+    "Chocolate Noir": {
+        rating: "4.9",
+        votes: "241 reviews",
+        reviews: [
+            ["Dark chocolate flavor is deep and expensive-feeling.", "Chris B."],
+            ["Best one with coffee. Rich but not heavy.", "Emma T."],
+        ],
+    },
+    "Mango Silk": {
+        rating: "4.7",
+        votes: "146 reviews",
+        reviews: [
+            ["Bright mango, very smooth texture, perfect for a warm day.", "Vlad K."],
+            ["Tastes tropical without being too sweet.", "Lena F."],
+        ],
+    },
+    "Blueberry Frost": {
+        rating: "4.8",
+        votes: "173 reviews",
+        reviews: [
+            ["Blueberry is fresh and the finish is really clean.", "Omar H."],
+            ["The color and taste both feel premium.", "Dina C."],
+        ],
+    },
+    "Caramel Gold": {
+        rating: "4.9",
+        votes: "203 reviews",
+        reviews: [
+            ["Caramel ribbons are rich and smooth, a proper treat.", "Max N."],
+            ["Sweet, but in a polished way. Very dessert-like.", "Alina W."],
+        ],
+    },
+    "Coconut Snow": {
+        rating: "4.7",
+        votes: "151 reviews",
+        reviews: [
+            ["Light coconut and creamy texture. Really clean flavor.", "Nick A."],
+            ["Feels like a winter flavor but still fresh.", "Tanya B."],
+        ],
+    },
+};
 
 const formatPrice = (value) => `$${value.toFixed(2)}`;
 const parsePrice = (price) => Number(String(price).replace("$", "")) || 0;
@@ -85,7 +171,7 @@ const decorateProductCards = () => {
             favoriteButton.type = "button";
             favoriteButton.dataset.favorite = card.dataset.name;
             favoriteButton.setAttribute("aria-label", `Add ${card.dataset.name} to favorites`);
-            favoriteButton.textContent = "♡";
+            favoriteButton.textContent = "+";
             media.append(favoriteButton);
         }
 
@@ -107,8 +193,25 @@ const getProductData = (card) => ({
     details: card.dataset.details,
     calories: card.dataset.calories,
     size: card.dataset.size,
+    category: card.dataset.category,
     image: card.querySelector(".product-card__image")?.getAttribute("src"),
 });
+
+const getRelatedProducts = (currentCard) => {
+    const currentCategories = (currentCard.dataset.category || "").split(" ");
+    const cards = Array.from(productCards).filter((card) => card !== currentCard);
+
+    return cards
+        .map((card) => ({
+            card,
+            score: (card.dataset.category || "")
+                .split(" ")
+                .filter((category) => currentCategories.includes(category)).length,
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6)
+        .map((item) => item.card);
+};
 
 const openCart = () => {
     if (!cartDrawer) return;
@@ -130,15 +233,35 @@ const openQuickView = (card) => {
     if (!quickView || !card) return;
 
     const product = getProductData(card);
+    const reviewData = productReviews[product.name] || productReviews["Pistachio Dream"];
     quickImage.src = product.image;
     quickImage.alt = `${product.name} ice cream`;
     quickBadge.textContent = product.badge;
     quickTitle.textContent = product.name;
     quickText.textContent = product.details;
+    quickScore.textContent = reviewData.rating;
+    quickVotes.textContent = reviewData.votes;
     quickCalories.textContent = product.calories;
     quickSize.textContent = product.size;
     quickBuy.dataset.name = product.name;
     quickBuy.dataset.price = product.price;
+    quickReviews.innerHTML = reviewData.reviews.map(([text, author]) => `
+        <article class="quick-review">
+            <p>${text}</p>
+            <strong>${author}</strong>
+        </article>
+    `).join("");
+    quickRelatedList.innerHTML = getRelatedProducts(card).map((relatedCard) => {
+        const related = getProductData(relatedCard);
+
+        return `
+            <button class="related-card" type="button" data-related="${related.name}">
+                <img src="${related.image}" alt="${related.name} ice cream">
+                <strong>${related.name}</strong>
+                <span>${related.price}</span>
+            </button>
+        `;
+    }).join("");
 
     quickView.classList.add("is-open");
     quickView.setAttribute("aria-hidden", "false");
@@ -331,7 +454,7 @@ productList?.addEventListener("click", (event) => {
         }
 
         favoriteButton.classList.toggle("is-active", !isFavorite);
-        favoriteButton.textContent = isFavorite ? "♡" : "♥";
+        favoriteButton.textContent = isFavorite ? "+" : "OK";
         favoriteButton.setAttribute(
             "aria-label",
             `${isFavorite ? "Add" : "Remove"} ${name} ${isFavorite ? "to" : "from"} favorites`
@@ -364,6 +487,14 @@ quickBuy?.addEventListener("click", () => {
         name: quickBuy.dataset.name,
         price: quickBuy.dataset.price,
     });
+});
+
+quickRelatedList?.addEventListener("click", (event) => {
+    const relatedButton = event.target.closest("[data-related]");
+    if (!relatedButton) return;
+
+    const card = Array.from(productCards).find((productCard) => productCard.dataset.name === relatedButton.dataset.related);
+    openQuickView(card);
 });
 
 cartButton?.addEventListener("click", openCart);
