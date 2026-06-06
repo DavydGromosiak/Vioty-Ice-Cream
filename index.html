@@ -9,8 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@100..900&family=Hind+Madurai:wght@300;400;500;600;700&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css?v=20260606-fix">
-  <script src="./main.js?v=20260606-fix" defer></script>
+  <link rel="stylesheet" href="./style.css?v=20260606-commerce">
+  <script src="./main.js?v=20260606-commerce" defer></script>
 </head>
 
 <body>
@@ -85,7 +85,15 @@
         <span>Since 1985</span>
       </div>
 
-      <button class="button js-buy-now" type="button" data-name="Pistachio Dream" data-price="$19.55">Buy Now</button>
+      <div class="hero__actions">
+        <button class="button js-buy-now" type="button" data-name="Pistachio Dream" data-price="$19.55">Buy Now</button>
+        <a class="button button--ghost" href="#products">Explore flavors</a>
+      </div>
+
+      <div class="hero-proof" aria-label="Shop proof">
+        <span><strong>4.9/5</strong> rated by 12k customers</span>
+        <span><strong>Free</strong> cold delivery from $50</span>
+      </div>
     </div>
 
     <img class="hero__image" src="./frontend/assets/images/2Hero-icecream/icecream.png" alt="Ice cream">
@@ -134,6 +142,26 @@
         <p>Packed to arrive smooth, fresh, and ready.</p>
       </article>
     </div>
+  </section>
+
+  <section class="brand-story" aria-labelledby="brand-story-title">
+    <div>
+      <p class="section-eyebrow">Brand story</p>
+      <h2 class="section-title" id="brand-story-title">Born from Italian gelato culture, designed for modern cold delivery.</h2>
+    </div>
+    <p>
+      Vioty keeps the ritual of a real dessert shop but makes it work for home orders:
+      clean milk texture, bold flavor labels, insulated packing, and cups that look good in the freezer.
+    </p>
+  </section>
+
+  <section class="promo-strip" aria-label="Current promotion">
+    <div>
+      <span>Summer Drop</span>
+      <strong>Mango Silk + Berry Cream - 15% off</strong>
+      <p>Limited bright flavors for hot-week delivery windows.</p>
+    </div>
+    <a class="button" href="#products">Shop the drop</a>
   </section>
 
   <section class="products" id="products">
@@ -309,6 +337,72 @@
     </div>
   </section>
 
+  <section class="box-builder" id="box-builder" aria-labelledby="box-title">
+    <div class="box-builder__top">
+      <div>
+        <p class="section-eyebrow">Build your box</p>
+        <h2 class="section-title" id="box-title">Choose your Vioty set.</h2>
+      </div>
+      <div class="box-builder__options" aria-label="Box size">
+        <button class="box-option is-active" type="button" data-box-size="4" data-box-price="69">Choose 4 cups</button>
+        <button class="box-option" type="button" data-box-size="6" data-box-price="96">Choose 6 cups</button>
+      </div>
+    </div>
+
+    <div class="box-builder__body">
+      <div class="box-builder__flavors" aria-label="Box flavors"></div>
+      <aside class="box-builder__summary" aria-label="Box summary">
+        <span class="box-builder__count">0 of 4 selected</span>
+        <strong class="box-builder__total">$69.00</strong>
+        <p>Mix fruit, classic, chocolate, and premium cups in one frozen delivery.</p>
+        <button class="button box-builder__add" type="button">Add box to cart</button>
+        <small class="box-builder__status" aria-live="polite"></small>
+      </aside>
+    </div>
+  </section>
+
+  <section class="delivery" aria-labelledby="delivery-title">
+    <div class="delivery__top">
+      <p class="section-eyebrow">How delivery works</p>
+      <h2 class="section-title" id="delivery-title">Frozen from checkout to your door.</h2>
+    </div>
+    <div class="delivery__steps">
+      <article>
+        <span>1</span>
+        <h3>Choose flavors</h3>
+        <p>Pick single cups or build a 4/6 cup box in under two minutes.</p>
+        <small>2 min checkout</small>
+      </article>
+      <article>
+        <span>2</span>
+        <h3>Packed frozen</h3>
+        <p>Each order is sealed with insulated packing for a stable cold window.</p>
+        <small>-18 C handling</small>
+      </article>
+      <article>
+        <span>3</span>
+        <h3>Delivered cold</h3>
+        <p>Courier delivery arrives ready for the freezer or the first spoon.</p>
+        <small>Same-day windows</small>
+      </article>
+    </div>
+  </section>
+
+  <section class="gallery" aria-labelledby="gallery-title">
+    <div class="gallery__top">
+      <p class="section-eyebrow">Instagram</p>
+      <h2 class="section-title" id="gallery-title">Vioty moments on the table.</h2>
+    </div>
+    <div class="gallery__grid">
+      <img src="./frontend/assets/images/4Products/card1.png" alt="Pistachio Dream cup">
+      <img src="./frontend/assets/images/4Products/card2.png" alt="Berry Cream cup">
+      <img src="./frontend/assets/images/4Products/card3.png" alt="Vanilla Black cup">
+      <img src="./frontend/assets/images/4Products/card4.png" alt="Strawberry Milk cup">
+      <img src="./frontend/assets/images/4Products/card6.png" alt="Chocolate Noir cup">
+      <img src="./frontend/assets/images/4Products/card9.png" alt="Caramel Gold cup">
+    </div>
+  </section>
+
   <section class="reviews" aria-labelledby="reviews-title">
     <div class="reviews__top">
       <div>
@@ -452,7 +546,18 @@
         <span><strong class="quick-view__calories">260 kcal</strong> Calories</span>
         <span><strong class="quick-view__size">500 ml</strong> Size</span>
       </div>
-      <div class="quick-view__reviews" aria-label="Product reviews"></div>
+      <div class="quick-tabs" role="tablist" aria-label="Product details">
+        <button class="quick-tab is-active" type="button" data-tab="details">Details</button>
+        <button class="quick-tab" type="button" data-tab="ingredients">Ingredients</button>
+        <button class="quick-tab" type="button" data-tab="nutrition">Nutrition</button>
+        <button class="quick-tab" type="button" data-tab="delivery">Delivery</button>
+        <button class="quick-tab" type="button" data-tab="reviews">Reviews</button>
+      </div>
+      <div class="quick-view__tab-panel" data-tab-panel="details"></div>
+      <div class="quick-view__tab-panel" data-tab-panel="ingredients" hidden></div>
+      <div class="quick-view__tab-panel" data-tab-panel="nutrition" hidden></div>
+      <div class="quick-view__tab-panel" data-tab-panel="delivery" hidden></div>
+      <div class="quick-view__tab-panel quick-view__reviews" data-tab-panel="reviews" hidden aria-label="Product reviews"></div>
       <button class="button quick-view__buy" type="button">Buy Now</button>
     </div>
     <div class="quick-view__related">
@@ -510,6 +615,24 @@
     </div>
   </section>
 </aside>
+
+<div class="mini-cart" aria-hidden="true">
+  <strong class="mini-cart__summary">0 items - $0.00</strong>
+  <button class="mini-cart__checkout" type="button">Checkout</button>
+</div>
+
+<section class="club" aria-labelledby="club-title">
+  <div>
+    <p class="section-eyebrow">VIP club</p>
+    <h2 class="section-title" id="club-title">Join Vioty Club</h2>
+    <p>Get early access to limited flavors, summer drops, and cold delivery offers.</p>
+  </div>
+  <form class="club__form">
+    <input type="email" name="email" placeholder="Email address" aria-label="Email address" required>
+    <button class="button" type="submit">Join</button>
+    <span class="club__status" aria-live="polite"></span>
+  </form>
+</section>
 
 <footer class="footer">
   <div class="footer__brand">
