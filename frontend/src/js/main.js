@@ -195,6 +195,7 @@ const getProductData = (card) => ({
     size: card.dataset.size,
     category: card.dataset.category,
     image: card.querySelector(".product-card__image")?.getAttribute("src"),
+    detailImage: card.querySelector(".product-card__image")?.getAttribute("src").replace("/card", "/card-detail"),
 });
 
 const getRelatedProducts = (currentCard) => {
@@ -234,7 +235,7 @@ const openQuickView = (card) => {
 
     const product = getProductData(card);
     const reviewData = productReviews[product.name] || productReviews["Pistachio Dream"];
-    quickImage.src = product.image;
+    quickImage.src = product.detailImage;
     quickImage.alt = `${product.name} ice cream`;
     quickBadge.textContent = product.badge;
     quickTitle.textContent = product.name;
